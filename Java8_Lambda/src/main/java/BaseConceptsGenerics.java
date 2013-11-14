@@ -19,7 +19,7 @@ public class BaseConceptsGenerics<T,R> {
     }
 
     // Functor - map
-    public List<R> map( Function<T, R> f, List<T> values ) {
+    public List<R> map( Function<? super T, ? extends R> f, List<T> values ) {
         List<R> toReturn = new ArrayList<>();
         for( T current : values ) {
             toReturn.add( f.apply(current) );
@@ -28,7 +28,7 @@ public class BaseConceptsGenerics<T,R> {
     }
 
     // Functor - filter
-    public List<T> filter( Function<T, Boolean> f, List<T> values ) {
+    public List<T> filter( Function<? super T, Boolean> f, List<T> values ) {
         List<T> toReturn = new ArrayList<>();
         for( T current : values ) {
             if ( f.apply(current) )
