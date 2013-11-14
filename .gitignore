@@ -1,0 +1,19 @@
+# Extracted from https://github.com/ulrich/macaron-factory/blob/master/.gitignore
+# Ignore all dotfiles
+.*
+# except for .gitignore
+!.gitignore
+
+#ignore idea files
+.idea
+.idea_modules
+
+#ignore Netbeans files
+/nbproject/private/
+/nbproject
+/build.xml
+
+#ignore Eclipse files
+/.settings
+/.classpath
+/.project
