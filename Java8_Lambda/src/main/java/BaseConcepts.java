@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  * Time: 10:48 AM
  * To change this template use File | Settings | File Templates.
  */
-public class baseConcepts {
+public class BaseConcepts {
 
     // High order function
     public static Function<String, String> twice( Function<String, String> f ) {
@@ -37,7 +37,7 @@ public class baseConcepts {
         return toReturn;
     }
 
-    // Combinator
+    // Combinator (Null Combinator)
     public static Function<String, String> nullCheck( Function<String, String> f ) {
         return (String s) -> s == null ? "null" : f.apply(s);
     }
@@ -50,31 +50,41 @@ public class baseConcepts {
     public static void main( String[] args ) {
 
         // First Class  Function
+        System.out.println( "//=> First Class  Function" );
         Function<String, String> hello = (String s) -> "hello " + s;
         System.out.println(hello);
+        System.out.println( new BaseConcepts() );
         System.out.println(hello.apply("Erouan"));
 
         // High order function
+        System.out.println( "\n//=> High order function" );
         System.out.println( twice(hello) );
         System.out.println( twice(hello).apply("Erouan") );
 
         // Functor: map
+        System.out.println( "\n//=> Functor: map" );
         List<String> confs = Arrays.asList( new String[]{"jug", "devoxx", "javaone"} );
         System.out.println( map(s -> s.toUpperCase(), confs) );
         System.out.println( confs.stream().map(s -> s.toUpperCase()).collect(Collectors.toList()) );
 
+        // Functor: filter
+        System.out.println( "\n//=> Functor: filter" );
+        System.out.println( filter(s -> s.contains("j"), confs) );
+        System.out.println( confs.stream().filter( s -> s.contains("j") ).collect( Collectors.toList() ) );
+
         // Combinator
+        System.out.println( "\n//=> Combinator" );
         List<String> confs2 = Arrays.asList( new String[]{"jug", "devoxx", "javaone", null} );
+        //System.out.println( map( s -> s.toUpperCase(), confs2) );
         System.out.println( map( nullCheck(s -> s.toUpperCase()), confs2) );
+        System.out.println( confs2.stream().map( nullCheck(s -> s.toUpperCase()) ).collect( Collectors.toList() ) );
 
         // Composition
-        System.out.println(compose((String s1) -> s1.toUpperCase(), (String s2) -> "Hello " + s2).apply("Test"));
+        System.out.println( "\n//=> Composition" );
+        Function<String, String> up = (String s) -> s.toUpperCase();
+        System.out.println( compose( up, hello).apply("Erouan") );
+        System.out.println( up.apply( hello.apply("Erouan") ));
 
-        // Currying - Monad
-        // -> Ca me parait compliquer en 10 min ;)
-
-        // Functor: filter
-        // pourquoi pas ?
     }
 
 }
