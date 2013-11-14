@@ -84,6 +84,7 @@ public class BaseConcepts {
         Function<String, String> up = (String s) -> s.toUpperCase();
         System.out.println( compose( up, hello).apply("Erouan") );
         System.out.println( up.apply( hello.apply("Erouan") ));
+        System.out.println( hello.andThen(up).apply("Erouan") );
 
     }
 

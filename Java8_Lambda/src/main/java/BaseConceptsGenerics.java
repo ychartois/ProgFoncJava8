@@ -87,6 +87,7 @@ public class BaseConceptsGenerics<T,R> {
         Function<String, String> up = (String s) -> s.toUpperCase();
         System.out.println( func.compose( up, hello).apply("Erouan") );
         System.out.println( up.apply( hello.apply("Erouan") ));
+        System.out.println( hello.andThen(up).apply("Erouan") );
 
     }
 
