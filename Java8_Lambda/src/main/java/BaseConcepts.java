@@ -63,7 +63,7 @@ public class BaseConcepts {
 
         // Functor: map
         System.out.println( "\n//=> Functor: map" );
-        List<String> confs = Arrays.asList( new String[]{"jug", "devoxx", "javaone"} );
+        List<String> confs = Arrays.asList( "jug", "devoxx", "javaone" );
         System.out.println( map(s -> s.toUpperCase(), confs) );
         System.out.println( confs.stream().map(s -> s.toUpperCase()).collect(Collectors.toList()) );
 
@@ -74,7 +74,7 @@ public class BaseConcepts {
 
         // Combinator
         System.out.println( "\n//=> Combinator" );
-        List<String> confs2 = Arrays.asList( new String[]{"jug", "devoxx", "javaone", null} );
+        List<String> confs2 = Arrays.asList( "jug", "devoxx", "javaone", null );
         //System.out.println( map( s -> s.toUpperCase(), confs2) );
         System.out.println( map( nullCheck(s -> s.toUpperCase()), confs2) );
         System.out.println( confs2.stream().map( nullCheck(s -> s.toUpperCase()) ).collect( Collectors.toList() ) );
