@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -28,10 +29,10 @@ public class BaseConcepts {
     }
 
     // Functor - filter
-    public static List<String> filter( Function<String, Boolean> f, List<String> values ) {
+    public static List<String> filter( Predicate<String> f, List<String> values ) {
         List<String> toReturn = new ArrayList<>();
         for( String current : values ) {
-            if ( f.apply(current) )
+            if ( f.test(current) )
                 toReturn.add( current );
         }
         return toReturn;
