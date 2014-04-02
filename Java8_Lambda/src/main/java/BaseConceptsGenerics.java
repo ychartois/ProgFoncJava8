@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -28,10 +29,10 @@ public class BaseConceptsGenerics<T,R> {
     }
 
     // Functor - filter
-    public List<T> filter( Function<? super T, Boolean> f, List<T> values ) {
+    public List<T> filter( Predicate<? super T> f, List<T> values ) {
         List<T> toReturn = new ArrayList<>();
         for( T current : values ) {
-            if ( f.apply(current) )
+            if ( f.test(current) )
                 toReturn.add( current );
         }
         return toReturn;
@@ -66,7 +67,7 @@ public class BaseConceptsGenerics<T,R> {
 
         // Functor: map
         System.out.println( "\n//=> Functor: map" );
-        List<String> confs = Arrays.asList( new String[]{"jug", "devoxx", "javaone"} );
+        List<String> confs = Arrays.asList( "jug", "devoxx", "javaone" );
         System.out.println( func.map( s -> s.toUpperCase(), confs) );
         System.out.println( confs.stream().map(s -> s.toUpperCase()).collect(Collectors.toList()) );
 
@@ -77,7 +78,7 @@ public class BaseConceptsGenerics<T,R> {
 
         // Combinator
         System.out.println( "\n//=> Combinator" );
-        List<String> confs2 = Arrays.asList( new String[]{"jug", "devoxx", "javaone", null} );
+        List<String> confs2 = Arrays.asList( "jug", "devoxx", "javaone", null );
         //System.out.println( map( s -> s.toUpperCase(), confs2) );
         System.out.println( func.map( func.nullCheck(s -> s.toUpperCase()), confs2) );
         System.out.println( confs2.stream().map( func.nullCheck(s -> s.toUpperCase()) ).collect( Collectors.toList() ) );
