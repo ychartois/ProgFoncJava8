@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -28,12 +29,21 @@ public class BaseConceptsGenerics<T,R> {
         return toReturn;
     }
 
-    // Functor - filter
+    // High order function - filter
     public List<T> filter( Predicate<? super T> f, List<T> values ) {
         List<T> toReturn = new ArrayList<>();
         for( T current : values ) {
             if ( f.test(current) )
                 toReturn.add( current );
+        }
+        return toReturn;
+    }
+
+    // Reduction: reduce
+    public T reduce( BinaryOperator<T> op, List<T> values) {
+        T toReturn = null;
+        for( T current : values ) {
+            toReturn = toReturn == null ? current : op.apply(toReturn, current);
         }
         return toReturn;
     }
@@ -71,8 +81,13 @@ public class BaseConceptsGenerics<T,R> {
         System.out.println( func.map( s -> s.toUpperCase(), confs) );
         System.out.println( confs.stream().map(s -> s.toUpperCase()).collect(Collectors.toList()) );
 
-        // Functor: filter
-        System.out.println( "\n//=> Functor: filter" );
+        // Reduction: fold
+        System.out.println( "\n//=> Reduction: fold" );
+        System.out.println( func.reduce( (s1, s2) -> s1 + ", " + s2 , confs) );
+        System.out.println(confs.stream().reduce( (s1, s2) -> s1 + ", " + s2 ).get());
+
+        // High order function: filter
+        System.out.println( "\n//=> High order function: filter" );
         System.out.println( func.filter(s -> s.contains("j"), confs) );
         System.out.println( confs.stream().filter( s -> s.contains("j") ).collect( Collectors.toList() ) );
 

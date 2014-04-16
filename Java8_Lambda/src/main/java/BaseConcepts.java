@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -38,6 +40,15 @@ public class BaseConcepts {
         return toReturn;
     }
 
+    // Reduction: reduce
+    public static String reduce( BinaryOperator<String> op, List<String> values) {
+        String toReturn = "";
+        for( String current : values ) {
+            toReturn = toReturn.isEmpty() ? current : op.apply(toReturn, current);
+        }
+        return toReturn;
+    }
+
     // Combinator (Null Combinator)
     public static Function<String, String> nullCheck( Function<String, String> f ) {
         return (String s) -> s == null ? "null" : f.apply(s);
@@ -68,8 +79,14 @@ public class BaseConcepts {
         System.out.println( map(s -> s.toUpperCase(), confs) );
         System.out.println( confs.stream().map(s -> s.toUpperCase()).collect(Collectors.toList()) );
 
-        // Functor: filter
-        System.out.println( "\n//=> Functor: filter" );
+        // Reduction: fold
+        System.out.println( "\n//=> Reduction: fold" );
+        System.out.println( reduce( (s1, s2) -> s1 + ", " + s2 , confs) );
+        System.out.println(confs.stream().reduce( (s1, s2) -> s1 + ", " + s2 ).get());
+
+
+        // High Order Function: filter
+        System.out.println( "\n//=> High Order Function: filter" );
         System.out.println( filter(s -> s.contains("j"), confs) );
         System.out.println( confs.stream().filter( s -> s.contains("j") ).collect( Collectors.toList() ) );
 
